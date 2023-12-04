@@ -1,6 +1,6 @@
 name: flutter_svg_click_listener
 description: flutter_svg_click_listener is a package to help you to handel on click on svg element
-version: 0.0.1
+version: 0.0.6
 homepage: https://github.com/ahmed-khaled-z/flutter_svg_click_listener.git
 
 environment:
@@ -10,7 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  webview_flutter: ^2.0.6
+  webview_flutter: ^4.4.2
 
 dev_dependencies:
   flutter_test:
