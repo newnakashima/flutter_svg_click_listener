@@ -1,12 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 // ignore: must_be_immutable
-class SvgImage extends StatelessWidget {
+class SvgImage extends StatefulWidget {
   SvgImage({super.key, required this.svgString,required this.onElementClick});
-
   String svgString;
   Function(String) onElementClick;
+
+  @override
+  State<SvgImage> createState() => _SvgImageState();
+}
+
+class _SvgImageState extends State<SvgImage> {
+  late WebViewController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = WebViewController()
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel(
+        'onClick',
+        onMessageReceived: (JavaScriptMessage message) {
+          widget.onElementClick(message.message);
+        },
+      )
+      ..setBackgroundColor(const Color(0x00000000))
+      ..setNavigationDelegate(
+        NavigationDelegate(
+          onProgress: (int progress) {
+            // Update loading bar.
+          },
+          onPageStarted: (String url) {},
+          onPageFinished: (String url) {},
+          onWebResourceError: (WebResourceError error) {},
+          onNavigationRequest: (NavigationRequest request) {
+            return NavigationDecision.navigate;
+          },
+        ),
+      );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +57,7 @@ class SvgImage extends StatelessWidget {
     </style>
 </head>
 <body>
-$svgString
+${widget.svgString}
 
 <script type="text/javascript">
     // Get all elements within the SVG
@@ -45,32 +79,13 @@ $svgString
 </html>
 
   ''';
-
-    WebViewController controller = WebViewController()
-      ..setJavaScriptMode(JavaScriptMode.unrestricted)
-      ..addJavaScriptChannel(
-        'onClick',
-        onMessageReceived: (JavaScriptMessage message) {
-          onElementClick(message.message);
-        },
-      )
-      ..setBackgroundColor(const Color(0x00000000))
-      ..setNavigationDelegate(
-        NavigationDelegate(
-          onProgress: (int progress) {
-            // Update loading bar.
-          },
-          onPageStarted: (String url) {},
-          onPageFinished: (String url) {},
-          onWebResourceError: (WebResourceError error) {},
-          onNavigationRequest: (NavigationRequest request) {
-            return NavigationDecision.navigate;
-          },
-        ),
-      )
-      ..loadHtmlString(svgSrc);
+    controller.loadHtmlString(svgSrc);
     return Scaffold(
       body: WebViewWidget(controller: controller),
     );
   }
+}
+
+Future<String> loadSvgStringFromAssets(String path) async {
+  return await rootBundle.loadString(path);
 }
