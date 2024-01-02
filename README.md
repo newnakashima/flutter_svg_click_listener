@@ -36,7 +36,7 @@ Basic usage example:
 
 `main.dart`
 ```dart
-// Define svg string
+// Define svgString
 late final String svgString;
 
 @override
@@ -48,7 +48,7 @@ void initState() {
 
 @override
 Widget build(BuildContext context) {
-    // Call the AnimatedSvg widget anywhere in your widget tree.
+    // Call the SvgImage widget anywhere in your widget tree.
     return SvgImage(
             onElementClick: (val) {
               print("element id is $val")
