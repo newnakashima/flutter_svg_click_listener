@@ -25,7 +25,7 @@ First, add the following line to `pubspec.yaml`:
 flutter_svg_click_listener: ^0.0.7
 ```
 
-Second, import `AnimatedSvg`:
+Second, import `flutter_svg_click_listener`:
 ```dart
 import 'package:flutter_svg_click_listener/flutter_svg_click_listener.dart';
 ```
