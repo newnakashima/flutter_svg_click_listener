@@ -41,7 +41,7 @@ late final String svgString;
 
 @override
 void initState() {
-    // Initialize SvgController
+    // Initialize svgString
     svgString = await loadSvgStringFromAssets("assets/svg/sample.svg");
     super.initState();
 }
