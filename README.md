@@ -1,41 +1,72 @@
-Android Support:
-If your package relies on native code or platform-specific implementations, you'll need to modify the Android configuration.
+# SVG Clicklistener| Flutter Package
 
-Check android Folder:
-Ensure your package doesn't have any platform-specific code in the android folder. This folder should generally be empty for a pure Dart package.
+[Flutter][flutter_dev_link] package for set clicklistener on elements inside svg. The package has been written solely in [Dart][dart_dev_link] language.
 
-Dependencies:
-Ensure your package specifies any necessary platform-specific dependencies in the pubspec.yaml file. For Android-specific dependencies, use the flutter.plugin.platforms key.
+<div align="center">
 
-Plugin Registration:
-If your package uses platform channels, ensure the method channel registration in Dart code is correctly handling the Android platform.
+[![animated_svg][build_status_badge]][workflow_link]
+![coverage][coverage_badge]
+[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
+[![License: MIT][license_badge]][license_link]
 
-iOS Support:
-For iOS support, similar considerations apply as for Android:
+</div>
 
-ios Folder:
-Check the ios folder. If there's any Objective-C/Swift code or configuration required for iOS, ensure it's correctly set up.
 
-Dependencies:
-Ensure your package specifies any iOS-specific dependencies in the pubspec.yaml file. Use the flutter.plugin.platforms key for iOS-specific dependencies.
+## Features
 
-Method Channel Registration:
-If your package uses platform channels, ensure the method channel registration in Dart code is correctly handling the iOS platform.
+A powerful and fully customizable widget. With this package, you can click on SVG  elements
 
-Web Support:
-Check for Web Support:
-Ensure your package doesn't use any native code that won't work on the web. For instance, any method channels or platform-specific code should be wrapped in platform-specific checks (if (kIsWeb) { ... }).
+## Getting started
 
-Dependencies:
-Declare any web-specific dependencies in the pubspec.yaml file using the web platform specifier.
+Let's take a look at how to implement `flutter_svg_click_listener`
 
-Code Adaptations:
-Ensure your codebase follows web-compatible patterns. Certain packages or functionalities might not work the same way on the web due to browser constraints or differences.
+First, add the following line to `pubspec.yaml`:
+```yaml
+flutter_svg_click_listener: ^0.0.7
+```
 
-Testing:
-Test your package thoroughly on Android, iOS, and web platforms after making modifications to ensure it works correctly on each platform. Use emulators/simulators and real devices for testing.
+Second, import `AnimatedSvg`:
+```dart
+import 'package:flutter_svg_click_listener/flutter_svg_click_listener.dart';
+```
 
-Documentation:
-Update your package's documentation (README.md) to inform users about the platforms your package supports and any platform-specific instructions they might need to follow.
+## Usage
 
-Always refer to the official Flutter documentation, especially the guides related to platform-specific implementations and publishing packages for additional details and best practices.
+Basic usage example: 
+
+`main.dart`
+```dart
+// Define svg string
+late final String svgString;
+
+@override
+void initState() {
+    // Initialize SvgController
+    svgString = await loadSvgStringFromAssets("assets/svg/sample.svg");
+    super.initState();
+}
+
+@override
+Widget build(BuildContext context) {
+    // Call the AnimatedSvg widget anywhere in your widget tree.
+    return SvgImage(
+            onElementClick: (val) {
+              print("element id is $val")
+            },
+            svgString: document != null ? document.toString() : "");
+}
+```
+
+## Example
+
+More examples can be found in `/example` folder on [GitHub][animated_svg_github_link]. 
+
+## Additional information
+
+This package has been written solely in Dart Language yet it has the [flutter_svg][flutter_svg_link] as a dependency.
+
+For more information please visit [GitHub][flutter_svg_click_listener].
+
+## Feature requests and bugs
+
+Please file feature requests and bugs at the [issue tracker][animated_svg_issue_link].
