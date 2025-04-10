@@ -4,7 +4,7 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 // ignore: must_be_immutable
 class SvgImage extends StatefulWidget {
-  SvgImage({super.key, required this.svgString,required this.onElementClick});
+  SvgImage({super.key, required this.svgString, required this.onElementClick});
   String svgString;
   Function(String) onElementClick;
 
@@ -50,6 +50,9 @@ class _SvgImageState extends State<SvgImage> {
 <head>
     <title>Interactive SVG</title>
     <style>
+        body {
+            margin: 0;
+        }
         svg {
             width: 100%;
             height: auto;
