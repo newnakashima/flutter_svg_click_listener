@@ -52,6 +52,7 @@ class _SvgImageState extends State<SvgImage> {
     <style>
         body {
             margin: 0;
+            overflow: hidden;
         }
         svg {
             width: 100%;
