@@ -4,8 +4,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 // ignore: must_be_immutable
 class SvgImage extends StatefulWidget {
-  SvgImage({super.key, required this.svgString, required this.onElementClick});
+  SvgImage({
+    super.key,
+    required this.svgString,
+    required this.onElementClick,
+    this.backgroundColor = Colors.white,
+  });
   String svgString;
+  Color backgroundColor;
   Function(String) onElementClick;
 
   @override
@@ -85,7 +91,12 @@ ${widget.svgString}
   ''';
     controller.loadHtmlString(svgSrc);
     return Scaffold(
-      body: WebViewWidget(controller: controller),
+      body: Container(
+        color: widget.backgroundColor,
+        child: WebViewWidget(
+          controller: controller,
+        ),
+      ),
     );
   }
 }
